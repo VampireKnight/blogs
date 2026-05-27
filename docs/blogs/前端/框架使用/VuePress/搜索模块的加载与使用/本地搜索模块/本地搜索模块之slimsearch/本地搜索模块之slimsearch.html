@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="generator" content="VuePress 2.0.0-rc.29">
+    <title>本地搜索模块之slimsearch | VuePress</title><meta name="description" content="">
+    <link rel="preload" href="/blogs/assets/style-nocU6mYz.css" as="style"><link rel="stylesheet" href="/blogs/assets/style-nocU6mYz.css">
+    <link rel="modulepreload" href="/blogs/assets/app-BEpWzHBM.js"><link rel="modulepreload" href="/blogs/assets/plugin-vue_export-helper-DmxsexXh.js"><link rel="modulepreload" href="/blogs/assets/preload-helper-hStpEv42.js"><link rel="modulepreload" href="/blogs/assets/runtime-core.esm-bundler-D0V1POjj.js"><link rel="modulepreload" href="/blogs/assets/本地搜索模块之slimsearch-G4dlxZKl.js">
+    <link rel="prefetch" href="/blogs/assets/README.en-CITruNqu.js" as="script"><link rel="prefetch" href="/blogs/assets/README-Ej_QF6_P.js" as="script"><link rel="prefetch" href="/blogs/assets/通过正则处理jsonp-CizXv4f7.js" as="script"><link rel="prefetch" href="/blogs/assets/泛型的使用-CFxXxnWp.js" as="script"><link rel="prefetch" href="/blogs/assets/测试-kcV2t88q.js" as="script"><link rel="prefetch" href="/blogs/assets/as类型推断解决报错-BfbUgOpf.js" as="script"><link rel="prefetch" href="/blogs/assets/namespace-1SoAUUwQ.js" as="script"><link rel="prefetch" href="/blogs/assets/初始化对象未赋值的报错问题-Dg2a66zd.js" as="script"><link rel="prefetch" href="/blogs/assets/实现”继承“”覆盖“-D7_LGmXH.js" as="script"><link rel="prefetch" href="/blogs/assets/兼容浏览器端与node-Dj532AGj.js" as="script"><link rel="prefetch" href="/blogs/assets/实现type中所有属性的可选-wJLwEX78.js" as="script"><link rel="prefetch" href="/blogs/assets/typescript的导入导出-FDAFTkTW.js" as="script"><link rel="prefetch" href="/blogs/assets/合并enum或者保持enum独立-CcmWGFes.js" as="script"><link rel="prefetch" href="/blogs/assets/如何实现typeRoots中的多级目录使用-CvGGe_E_.js" as="script"><link rel="prefetch" href="/blogs/assets/如何跨本地项目开发-BaGEvvOp.js" as="script"><link rel="prefetch" href="/blogs/assets/如何跨项目使用type-Cw0d1u-k.js" as="script"><link rel="prefetch" href="/blogs/assets/实现一个type中属性全部变成可选-D29MiR8i.js" as="script"><link rel="prefetch" href="/blogs/assets/工具函数的class和函数导出-D7LsNn63.js" as="script"><link rel="prefetch" href="/blogs/assets/type中有export如何实现全局自动注入-D28EtObg.js" as="script"><link rel="prefetch" href="/blogs/assets/namespace和declare global按需使用-BNDmMvX1.js" as="script"><link rel="prefetch" href="/blogs/assets/ts中枚举与或连接符的选择-Bpy_TS0F.js" as="script"><link rel="prefetch" href="/blogs/assets/ts枚举Switch与case中使用include-BgvTwBo1.js" as="script"><link rel="prefetch" href="/blogs/assets/使用reduce替代map与filter-Be4BTIVQ.js" as="script"><link rel="prefetch" href="/blogs/assets/函数有相关性的多泛型如何使用-BrMdFG2H.js" as="script"><link rel="prefetch" href="/blogs/assets/正则匹配jsonp-C-310Q_e.js" as="script"><link rel="prefetch" href="/blogs/assets/简要记录-ColAtEdu.js" as="script"><link rel="prefetch" href="/blogs/assets/vuepress之md打包与路由-C4oijAJR.js" as="script"><link rel="prefetch" href="/blogs/assets/1.基础配置与说明-MEs0JJhj.js" as="script"><link rel="prefetch" href="/blogs/assets/主题使用与开发-0If1q4pI.js" as="script"><link rel="prefetch" href="/blogs/assets/本地搜索模块之Search-Ck2yAW_K.js" as="script"><link rel="prefetch" href="/blogs/assets/vuepress框架V2.0_全局导入stylus变量-Dmrhweek.js" as="script"><link rel="prefetch" href="/blogs/assets/404.html-Bb_skScJ.js" as="script"><link rel="prefetch" href="/blogs/assets/app-BEpWzHBM.js" as="script"><link rel="prefetch" href="/blogs/assets/SearchResult-DMXpsPo3-BBycI7lb.js" as="script">
+  </head>
+  <body>
+    <div id="app"><!--[--><div><header class="navbar"><div class="sidebar-button"><svg class="icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z" class=""></path></svg></div><a href="/blogs/" class="home-link"><img class="logo" src="/blogs/logo.png"><!----></a><div class="links" style=""><!--[--><button type="button" class="slimsearch-button" aria-label="搜索"><svg xmlns="http://www.w3.org/2000/svg" class="icon search-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="search icon"><path d="M192 480a256 256 0 1 1 512 0 256 256 0 0 1-512 0m631.776 362.496-143.2-143.168A318.464 318.464 0 0 0 768 480c0-176.736-143.264-320-320-320S128 303.264 128 480s143.264 320 320 320a318.016 318.016 0 0 0 184.16-58.592l146.336 146.368c12.512 12.48 32.768 12.48 45.28 0 12.48-12.512 12.48-32.768 0-45.28"></path></svg><div class="slimsearch-placeholder">搜索</div><div class="slimsearch-key-hints"><kbd class="slimsearch-key">Ctrl</kbd><kbd class="slimsearch-key">K</kbd></div></button><!--]--><nav class="nav-links can-hide"><!--[--><div class="nav-item"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="前端"><span class="title">前端</span><span class="arrow down"></span></button><button class="mobile-dropdown-title" type="button" aria-label="前端"><span class="title">前端</span><span class="right arrow"></span></button><ul class="nav-dropdown" style="display:none;"><!--[--><li class="dropdown-item"><h4>开发技巧</h4><ul class="dropdown-subitem-wrapper"><!--[--><li class="dropdown-subitem"><a href="/blogs/blogs/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" class="nav-link" exact="false">开发技巧</a></li><li class="dropdown-subitem"><a href="/blogs/blogs/%E5%89%8D%E7%AB%AF/%E6%A1%86%E6%9E%B6%E4%BD%BF%E7%94%A8/" class="nav-link" exact="false">框架使用</a></li><!--]--></ul></li><li class="dropdown-item"><h4>框架使用</h4><ul class="dropdown-subitem-wrapper"><!--[--><li class="dropdown-subitem"><a href="/blogs/blogs/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" class="nav-link" exact="false">开发技巧</a></li><li class="dropdown-subitem"><a href="/blogs/blogs/%E5%89%8D%E7%AB%AF/%E6%A1%86%E6%9E%B6%E4%BD%BF%E7%94%A8/" class="nav-link" exact="false">框架使用</a></li><!--]--></ul></li><!--]--></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="新增"><span class="title">新增</span><span class="arrow down"></span></button><button class="mobile-dropdown-title" type="button" aria-label="新增"><span class="title">新增</span><span class="right arrow"></span></button><ul class="nav-dropdown" style="display:none;"><!--[--><li class="dropdown-item"><h4>泛型的使用</h4><ul class="dropdown-subitem-wrapper"><!--[--><li class="dropdown-subitem"><a href="/blogs/blogs/%E6%96%B0%E5%A2%9E/%E6%B3%9B%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/" class="nav-link" exact="false">泛型的使用</a></li><!--]--></ul></li><!--]--></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="项目"><span class="title">项目</span><span class="arrow down"></span></button><button class="mobile-dropdown-title" type="button" aria-label="项目"><span class="title">项目</span><span class="right arrow"></span></button><ul class="nav-dropdown" style="display:none;"><!--[--><li class="dropdown-item"><h4>测试</h4><ul class="dropdown-subitem-wrapper"><!--[--><li class="dropdown-subitem"><a href="/blogs/blogs/%E9%A1%B9%E7%9B%AE/%E6%B5%8B%E8%AF%95/" class="nav-link" exact="false">测试</a></li><li class="dropdown-subitem"><a href="/blogs/blogs/%E9%A1%B9%E7%9B%AE/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/" class="nav-link" exact="false">个人项目</a></li><!--]--></ul></li><li class="dropdown-item"><h4>个人项目</h4><ul class="dropdown-subitem-wrapper"><!--[--><li class="dropdown-subitem"><a href="/blogs/blogs/%E9%A1%B9%E7%9B%AE/%E6%B5%8B%E8%AF%95/" class="nav-link" exact="false">测试</a></li><li class="dropdown-subitem"><a href="/blogs/blogs/%E9%A1%B9%E7%9B%AE/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/" class="nav-link" exact="false">个人项目</a></li><!--]--></ul></li><!--]--></ul></div></div><!--]--><a href="https://gitee.com/KnightKun/personal-blog-by-vue-press" class="repo-link" target="_blank" rel="noopener noreferrer">Gitee <!----></a></nav></div></header><aside class="sidebar"> 这是sideBar <nav class="nav-links"><!--[--><div class="nav-item"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="前端"><span class="title">前端</span><span class="arrow down"></span></button><button class="mobile-dropdown-title" type="button" aria-label="前端"><span class="title">前端</span><span class="right arrow"></span></button><ul class="nav-dropdown" style="display:none;"><!--[--><li class="dropdown-item"><h4>开发技巧</h4><ul class="dropdown-subitem-wrapper"><!--[--><li class="dropdown-subitem"><a href="/blogs/blogs/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" class="nav-link" exact="false">开发技巧</a></li><li class="dropdown-subitem"><a href="/blogs/blogs/%E5%89%8D%E7%AB%AF/%E6%A1%86%E6%9E%B6%E4%BD%BF%E7%94%A8/" class="nav-link" exact="false">框架使用</a></li><!--]--></ul></li><li class="dropdown-item"><h4>框架使用</h4><ul class="dropdown-subitem-wrapper"><!--[--><li class="dropdown-subitem"><a href="/blogs/blogs/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" class="nav-link" exact="false">开发技巧</a></li><li class="dropdown-subitem"><a href="/blogs/blogs/%E5%89%8D%E7%AB%AF/%E6%A1%86%E6%9E%B6%E4%BD%BF%E7%94%A8/" class="nav-link" exact="false">框架使用</a></li><!--]--></ul></li><!--]--></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="新增"><span class="title">新增</span><span class="arrow down"></span></button><button class="mobile-dropdown-title" type="button" aria-label="新增"><span class="title">新增</span><span class="right arrow"></span></button><ul class="nav-dropdown" style="display:none;"><!--[--><li class="dropdown-item"><h4>泛型的使用</h4><ul class="dropdown-subitem-wrapper"><!--[--><li class="dropdown-subitem"><a href="/blogs/blogs/%E6%96%B0%E5%A2%9E/%E6%B3%9B%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/" class="nav-link" exact="false">泛型的使用</a></li><!--]--></ul></li><!--]--></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="项目"><span class="title">项目</span><span class="arrow down"></span></button><button class="mobile-dropdown-title" type="button" aria-label="项目"><span class="title">项目</span><span class="right arrow"></span></button><ul class="nav-dropdown" style="display:none;"><!--[--><li class="dropdown-item"><h4>测试</h4><ul class="dropdown-subitem-wrapper"><!--[--><li class="dropdown-subitem"><a href="/blogs/blogs/%E9%A1%B9%E7%9B%AE/%E6%B5%8B%E8%AF%95/" class="nav-link" exact="false">测试</a></li><li class="dropdown-subitem"><a href="/blogs/blogs/%E9%A1%B9%E7%9B%AE/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/" class="nav-link" exact="false">个人项目</a></li><!--]--></ul></li><li class="dropdown-item"><h4>个人项目</h4><ul class="dropdown-subitem-wrapper"><!--[--><li class="dropdown-subitem"><a href="/blogs/blogs/%E9%A1%B9%E7%9B%AE/%E6%B5%8B%E8%AF%95/" class="nav-link" exact="false">测试</a></li><li class="dropdown-subitem"><a href="/blogs/blogs/%E9%A1%B9%E7%9B%AE/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/" class="nav-link" exact="false">个人项目</a></li><!--]--></ul></li><!--]--></ul></div></div><!--]--><a href="https://gitee.com/KnightKun/personal-blog-by-vue-press" class="repo-link" target="_blank" rel="noopener noreferrer">Gitee <!----></a></nav><!--[--><!--]--><!----><!--[--><!--]--></aside><main class="page"><!--[--><!--]--><div class="theme-default-content"><h1 id="本地搜索模块之slimsearch" tabindex="-1"><a class="header-anchor" href="#本地搜索模块之slimsearch"><span>本地搜索模块之slimsearch</span></a></h1><blockquote><p>说明:这是 vuepress2的使用</p></blockquote><h2 id="安装" tabindex="-1"><a class="header-anchor" href="#安装"><span>安装</span></a></h2><pre><code class="language-bash">npm i -D @vuepress/plugin-slimsearch@next
+yarn add -D @vuepress/plugin-slimsearch@next
+</code></pre><h2 id="项目中使用" tabindex="-1"><a class="header-anchor" href="#项目中使用"><span>项目中使用</span></a></h2><h3 id="config-ts中的配置" tabindex="-1"><a class="header-anchor" href="#config-ts中的配置"><span>config.ts中的配置</span></a></h3><pre><code class="language-ts">import { defineUserConfig } from &quot;vuepress&quot;;
+import { slimsearchPlugin } from &quot;@vuepress/plugin-slimsearch&quot;;
+
+// https://v2.vuepress.vuejs.org/zh/reference/config.html
+export default defineUserConfig({
+  base: &quot;/blogs/&quot;,
+  plugins: [
+    slimsearchPlugin({
+      indexContent: true, // 启用全文搜索
+    }),
+  ],
+  // 配置了locales, vuepress中 $localePath 才有意义
+  lang: &quot;zh-CN&quot;,
+  // 这里的设置会 影响 插件中的显示内容 slimsearchPlugin
+  locales: {
+    &quot;/&quot;: {
+      // 默认语言路径，无前缀
+      lang: &quot;zh-CN&quot;,
+      title: &quot;VuePress&quot;,
+    },
+    &quot;/zh/&quot;: {
+      // 中文路径，前缀为 /zh/
+      lang: &quot;en-US &quot;,
+      title: &quot;VuePress&quot;,
+    },
+  },
+  // ...
+});
+</code></pre><h3 id="搜索组件" tabindex="-1"><a class="header-anchor" href="#搜索组件"><span>搜索组件</span></a></h3><pre><code class="language-vue">&lt;template&gt;
+  &lt;!-- 使用 vuepress 内置组件 --&gt;
+  &lt;SearchBox /&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+  name: &quot;LocaSlimlSearch&quot;,
+};
+&lt;/script&gt;
+&lt;style lang=&quot;stylus&quot;&gt;
+// 参考 https://ecosystem.vuejs.press/zh/themes/default/styles.html#style-%E6%96%87%E4%BB%B6
+:root {
+// accent colors
+  --vp-c-accent: $accentColor;
+  --vp-c-accent-bg: #fff;
+  --vp-c-accent-hover: #4abf8a;
+  --vp-c-accent-text: var(--vp-c-white);
+  --vp-c-accent-soft: rgb(16 185 129 / 14%);
+
+  // background colors
+  --vp-c-bg: #fff;
+  --vp-c-bg-alt: #f6f6f7;
+  --vp-c-bg-elv: #fff;
+
+  // text colors
+  --vp-c-text: lighten($textColor, 25%);
+  --vp-c-text-mute: rgb(60 60 67 / 78%);
+  --vp-c-text-subtle: rgb(60 60 67 / 56%);
+
+  // border colors
+  --vp-c-divider: #e2e2e3;
+  --vp-c-border: #c2c2c4;
+  --vp-c-border-hard: #b8b8ba;
+
+  // shadow colors
+  --vp-c-shadow: rgb(0 0 0 / 15%);
+
+  // control colors---涉及到 slimsearch组件的输入框等控件的颜色
+  --vp-c-control: rgb(255,255,255);
+  --vp-c-control-hover: rgba(225,225,225,0.25);
+  --vp-c-control-disabled: #eaeaea;
+
+    --vp-c-accent-bg:rgb(225,225,225)
+
+
+  // code group colors
+  --vp-c-code-tab-title: var(--code-c-text, rgb(255 255 255 / 90%));
+  --vp-c-code-tab-bg: var(--code-bg-color, var(--code-c-bg));
+  --vp-c-code-tab-active: var(--vp-c-accent);
+
+  // transition vars
+  --vp-t-color: 0.3s ease;
+  --vp-t-transform: 0.3s ease;
+}
+.slimsearch-button {
+ border 1px solid darken($borderColor, 10%) !important
+}
+&lt;/style&gt;
+</code></pre><h2 id="说明" tabindex="-1"><a class="header-anchor" href="#说明"><span>说明</span></a></h2><h3 id="样式配置" tabindex="-1"><a class="header-anchor" href="#样式配置"><span>样式配置</span></a></h3><p>使用此插件时,内置 SearchBox 会被替换成 @vuepress/plugin-slimsearch 中的搜索组件</p><blockquote><p>它里面 涉及到 css 变量,参考**<a href="https://ecosystem.vuejs.press/zh/themes/default/styles.html#style-%E6%96%87%E4%BB%B6" target="_blank" rel="noopener noreferrer">主题默认css</a>** <code>这是因为作者开发时是考虑使用默认主题使用插件,所以css变量在 主题中</code> 因而,如果使用自定义主题开发项目时,需要 主动设置 这些css变量</p></blockquote><h3 id="国际化配置" tabindex="-1"><a class="header-anchor" href="#国际化配置"><span>国际化配置</span></a></h3><p>@vuepress/plugin-slimsearch 使用 中/英文 依赖于 defineUserConfig 中设置,而不是 插件传参</p><pre><code class="language-ts">import { defineUserConfig } from &quot;vuepress&quot;;
+import { slimsearchPlugin } from &quot;@vuepress/plugin-slimsearch&quot;;
+
+// https://v2.vuepress.vuejs.org/zh/reference/config.html
+export default defineUserConfig({
+  //  ...
+  lang: &quot;zh-CN&quot;,
+  // 这里的设置会 影响 插件中的显示内容 slimsearchPlugin
+  locales: {
+    &quot;/&quot;: {
+      // 默认语言路径，无前缀
+      lang: &quot;zh-CN&quot;,
+      title: &quot;VuePress&quot;,
+    },
+    &quot;/zh/&quot;: {
+      // 中文路径，前缀为 /zh/
+      lang: &quot;en-US &quot;,
+      title: &quot;VuePress&quot;,
+    },
+  },
+  // ...
+});
+</code></pre><h2 id="参考" tabindex="-1"><a class="header-anchor" href="#参考"><span>参考</span></a></h2><p><a href="https://ecosystem.vuejs.press/zh/plugins/search/slimsearch.html" target="_blank" rel="noopener noreferrer">VuePress 生态系统之 slimsearch</a><a href="https://ecosystem.vuejs.press/zh/themes/default/styles.html#style-%E6%96%87%E4%BB%B6" target="_blank" rel="noopener noreferrer">VuePress 生态系统 之 主题样式变量</a></p></div><!--[--><!--]--></main></div><!--[--><!----><!--]--><!--]--></div>
+    <script type="module" src="/blogs/assets/app-BEpWzHBM.js" defer></script>
+  </body>
+</html>

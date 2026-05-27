@@ -1,0 +1,5 @@
+import{E as e,s as t,u as n}from"./runtime-core.esm-bundler-D0V1POjj.js";import{t as r}from"./plugin-vue_export-helper-DmxsexXh.js";var i=JSON.parse(`{"path":"/blogs/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/ts%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/%E5%AE%9E%E7%8E%B0type%E4%B8%AD%E6%89%80%E6%9C%89%E5%B1%9E%E6%80%A7%E7%9A%84%E5%8F%AF%E9%80%89.html","title":"实现type中所有属性的可选","lang":"zh-CN","frontmatter":{}}`),a={name:`实现type中所有属性的可选.md`};function o(r,i,a,o,s,c){return e(),n(`div`,null,[...i[0]||=[t(`h1`,{id:`实现type中所有属性的可选`,tabindex:`-1`},[t(`a`,{class:`header-anchor`,href:`#实现type中所有属性的可选`},[t(`span`,null,`实现type中所有属性的可选`)])],-1),t(`pre`,null,[t(`code`,{class:`language-ts`},`// 将 T 中的所有 属性都变为可选
+type MyPartial<T> = {
+  [P in keyof T]?: T[P];
+};
+`)],-1)]])}var s=r(a,[[`render`,o]]);export{i as _pageData,s as default};
